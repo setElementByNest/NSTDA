@@ -48,8 +48,8 @@ def read_from_arduino():
                     canvas.itemconfig(text_lid_status, text="LID : CLOSED")
                     lid_status = False
                 elif command == "FINISH":
-                    send_command("PC : OPEN")
-                    display_serial_text("PC : STOP")
+                    # send_command("PC : OPEN")
+                    # display_serial_text("PC : STOP")
                     left_button.config(text="START PROCESS", background="forestgreen")
                     run_status = False
                 elif command == "RUN":
@@ -94,7 +94,7 @@ def button_click_run():
     global lid_status, run_status
     if not lid_status:
         if run_status:
-            send_command("PC : OPEN")
+            send_command("PC : STOP")
             display_serial_text("PC : STOP")
             left_button.config(text="START PROCESS", background="forestgreen")
             run_status = False
