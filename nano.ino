@@ -7,11 +7,14 @@ void setup() {
   pinMode(8, OUTPUT);
   pinMode(9, OUTPUT);
   pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
   pinMode(2, INPUT);
   pinMode(3, INPUT);
   attachInterrupt(digitalPinToInterrupt(2), interuptFunc2, CHANGE);
   attachInterrupt(digitalPinToInterrupt(3), interuptFunc3, RISING);
   digitalWrite(10, digitalRead(2));
+  digitalWrite(11, HIGH);
+
 }
 
 void loop() {
@@ -56,9 +59,13 @@ void loop() {
           delay(1000);
           status_run = false;
         }
+        digitalWrite(11, LOW);
+        delay(200);
         digitalWrite(8, HIGH);
         delay(500);
         digitalWrite(8, LOW);
+        delay(1000);
+        digitalWrite(11, HIGH);
         if (digitalRead(2) == HIGH) {
           Serial.println("NANO : LID CLOSE");
         } else {
@@ -71,6 +78,13 @@ void loop() {
         delay(500);
         digitalWrite(9, LOW);
         status_run = true;
+      }
+      if (command == "PC : STOP") {
+        Serial.println("NANO : STOP");
+        digitalWrite(9, HIGH);
+        delay(500);
+        digitalWrite(9, LOW);
+        status_run = false;
       }
     }
   }
